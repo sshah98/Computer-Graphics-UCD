@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>comp30020-Lab3.ppm</file>
+    </qresource>
+</RCC>

@@ -376,22 +376,41 @@ void GLWidget::rasterizeTriangles() {
    *
    */
 
-    // add two variables to get the minimum of triangle and max of triangle - the rightmost and bottommost of a square to get the points
+    for(float x=0.0; x<width; x++) {
+        for(float y=0.0; y<height; y++) {
 
-    for(unsigned x=0; x<vertices.size(); x++) {
-        for(unsigned y=0; y<vertices.size(); y++) {
+            Point p = Point(x,y,0);
 
-            Point p = vertices[x];
-
-            float alpha = barycentricCoordinate(p, 0, 1, 2);
-            float beta = barycentricCoordinate(p, 1, 2, 0);
-            float gamma = barycentricCoordinate(p, 2, 0, 1);
+            float alpha = barycentricCoordinate(p, 2, 1, 0);
+            float beta = barycentricCoordinate(p, 0, 2, 1);
+            float gamma = barycentricCoordinate(p, 0, 1, 2);
 
             if ((alpha < 0.0) || (beta < 0.0) || (gamma < 0.0)) {
                 continue;
             }
             brushColour = alpha * vertexColours[0] + beta * vertexColours[1] + gamma * vertexColours[2];
-            image.setPixel(x, y, brushColour);
+
+            image.setPixel(height -y , x, brushColour);
+
+        }
+
+    }
+
+    for(float x=0.0; x<width; x++) {
+        for(float y=0.0; y<height; y++) {
+
+            Point p = Point(x,y,0);
+
+            float alpha = barycentricCoordinate(p, 5, 4, 3);
+            float beta = barycentricCoordinate(p, 3, 5, 4);
+            float gamma = barycentricCoordinate(p, 3, 4, 5);
+
+            if ((alpha < 0.0) || (beta < 0.0) || (gamma < 0.0)) {
+                continue;
+            }
+            brushColour = alpha * vertexColours[3] + beta * vertexColours[4] + gamma * vertexColours[5];
+
+            image.setPixel(height -y , x, brushColour);
 
         }
 
